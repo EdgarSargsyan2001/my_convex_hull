@@ -21,6 +21,7 @@ signals:
     void setLineRed(QPoint a, QPoint b);
     void setPoint(QPoint a);
     void setHull(IntVector convexHull);
+    void highlightLine(int line);
 
 public:
     void run();

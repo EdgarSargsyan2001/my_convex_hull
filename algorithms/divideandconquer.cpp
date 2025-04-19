@@ -2,7 +2,7 @@
 
 void DivideAndConquer::run()
 {
-    convexHull(_pointsArray,_convexHull);
+    convexHull(_pointsArray, _convexHull);
 }
 
 void DivideAndConquer::setInputData(int speed, const QVector<QPoint> &pointsArray)
@@ -18,6 +18,7 @@ void DivideAndConquer::setSpeed(int speed)
 
 void DivideAndConquer::sort(const QVector<QPoint> &pointsArray, QVector<int> & pointsIndexes)
 {
+    emit highlightLine(1);
     int i = 0, j = 0, flag = 1;
     int temp;
     int len = pointsIndexes.size();
@@ -43,28 +44,30 @@ double DivideAndConquer::getDelayMultiplier()
 void DivideAndConquer::convexHull(const QVector<QPoint> &pointsArray, QVector<int> &convexHull)
 {
     QVector<int> pointsIndexes;
-    for(int i=0;i<pointsArray.size();i++) {
+    for(int i=0; i<pointsArray.size(); i++) {
         pointsIndexes.append(i);
     }
 
-    sort(pointsArray,pointsIndexes);
+    emit highlightLine(1);
+    sort(pointsArray, pointsIndexes);
 
-    QVector<int> _convexHull = getHullFromSlice(pointsArray,pointsIndexes,0,pointsIndexes.size()-1);
+    emit highlightLine(2);
+    QVector<int> _convexHull = getHullFromSlice(pointsArray, pointsIndexes, 0, pointsIndexes.size()-1);
+    emit highlightLine(8);
     emit setHull(_convexHull);
 }
-
 
 QVector<int> DivideAndConquer::getHullFromSlice(const QVector<QPoint> &pointsArray, QVector<int> &pointsIndexes, int from, int to)
 {
     if(to-from == 2) {
+        emit highlightLine(3);
         QVector<int> out;
-
         QVector<int> points;
         points.push_back(pointsIndexes[from]);
         points.push_back(pointsIndexes[from+1]);
         points.push_back(pointsIndexes[from+2]);
 
-        int orient = orientation(pointsArray[points[0]],pointsArray[points[1]],pointsArray[points[2]]);
+        int orient = orientation(pointsArray[points[0]], pointsArray[points[1]], pointsArray[points[2]]);
 
         if(orient==1) {
             out.push_back(points[0]);
@@ -75,9 +78,9 @@ QVector<int> DivideAndConquer::getHullFromSlice(const QVector<QPoint> &pointsArr
             out.push_back(points[2]);
             out.push_back(points[1]);
         }
-
         return out;
     } else if(to-from == 1) {
+        emit highlightLine(4);
         QVector<int> out;
         if(pointsArray[pointsIndexes[to]].y() < pointsArray[pointsIndexes[from]].y()) {
             out.push_back(pointsIndexes[from]);
@@ -88,32 +91,35 @@ QVector<int> DivideAndConquer::getHullFromSlice(const QVector<QPoint> &pointsArr
         }
         return out;
     } else if(to == from) {
+        emit highlightLine(5);
         QVector<int> out;
         out.push_back(pointsIndexes[to]);
         return out;
-    }
-    else {
+    } else {
+        emit highlightLine(2);
         int middle = from + (to-from)/2;
 
         QPoint leftPoint = pointsArray[pointsIndexes[middle]];
         QPoint rightPoint = pointsArray[pointsIndexes[middle+1]];
         int coordMiddle = leftPoint.x() + (rightPoint.x() - leftPoint.x()) / 2;
-        QPoint topDiv = QPoint(coordMiddle,10000);
-        QPoint bottomDiv = QPoint(coordMiddle,-10000);
-        emit setLineRed(topDiv,bottomDiv);
+        QPoint topDiv = QPoint(coordMiddle, 10000);
+        QPoint bottomDiv = QPoint(coordMiddle, -10000);
+        emit setLineRed(topDiv, bottomDiv);
         this->msleep(80 * getDelayMultiplier());
 
-        QVector<int> left = getHullFromSlice(pointsArray,pointsIndexes,from,middle);
-        emit setLineRed(topDiv,bottomDiv);
+        QVector<int> left = getHullFromSlice(pointsArray, pointsIndexes, from, middle);
+        emit setLineRed(topDiv, bottomDiv);
         this->msleep(70 * getDelayMultiplier());
 
-        QVector<int> right = getHullFromSlice(pointsArray,pointsIndexes,middle+1,to);
-        emit setLineRed(topDiv,bottomDiv);
+        QVector<int> right = getHullFromSlice(pointsArray, pointsIndexes, middle+1, to);
+        emit setLineRed(topDiv, bottomDiv);
         emit clearHull();
-        emit setMerge(left,right);
+        emit setMerge(left, right);
         this->msleep(70 * getDelayMultiplier());
 
-        QVector<int> result = merge(pointsArray,pointsIndexes,left,right);
+        emit highlightLine(6);
+        emit highlightLine(7);
+        QVector<int> result = merge(pointsArray, pointsIndexes, left, right);
         emit resetMarkers();
         emit setHull(result);
         this->msleep(200 * getDelayMultiplier());
@@ -123,6 +129,7 @@ QVector<int> DivideAndConquer::getHullFromSlice(const QVector<QPoint> &pointsArr
 
 QVector<int> DivideAndConquer::merge(const QVector<QPoint> &pointsArray, QVector<int> &pointsIndexes, QVector<int> left, QVector<int> right)
 {
+    emit highlightLine(6);
     QVector<int> result;
 
     int topLeft = 0;
@@ -134,18 +141,17 @@ QVector<int> DivideAndConquer::merge(const QVector<QPoint> &pointsArray, QVector
     bool bottomFound = false;
 
     for(int i = 0; i < left.size(); i++) {
-        if(topFound&&bottomFound) {
+        if(topFound && bottomFound) {
             break;
         }
         for(int j = 0; j < right.size(); j++) {
             QPoint lPoint = pointsArray[left[i]];
             QPoint rPoint = pointsArray[right[j]];
             if(!(lPoint.x()==rPoint.x() && lPoint.y() == rPoint.y())) {
-                emit setLineRed(lPoint,rPoint);
+                emit setLineRed(lPoint, rPoint);
                 this->msleep(50 * getDelayMultiplier());
-                if(lPoint.x()==rPoint.x()) {
-                    // TODO: write some code here
-                } else {
+
+                if(lPoint.x()!=rPoint.x()) {
                     double m = static_cast<double>(lPoint.y() - rPoint.y()) / static_cast<double>(lPoint.x() - rPoint.x());
                     double b = (m * (-lPoint.x())) + lPoint.y();
                     bool leftIsLower = true;
@@ -179,21 +185,21 @@ QVector<int> DivideAndConquer::merge(const QVector<QPoint> &pointsArray, QVector
                         topFound = true;
                         topLeft = i;
                         topRight = j;
-                        emit setLineYellow(lPoint,rPoint);
+                        emit setLineYellow(lPoint, rPoint);
                         this->msleep(100 * getDelayMultiplier());
                     }
                     if(rightIsHigher && leftIsHigher) {
                         bottomFound = true;
                         bottomLeft = i;
                         bottomRight = j;
-                        emit setLineYellow(lPoint,rPoint);
+                        emit setLineYellow(lPoint, rPoint);
                         this->msleep(100 * getDelayMultiplier());
                     }
                     if(rightIsHigher && leftIsHigher && rightIsLower && leftIsLower) {
                         qDebug("Error!!!!!");
                     }
 
-                    if(topFound&&bottomFound) {
+                    if(topFound && bottomFound) {
                         break;
                     }
                 }
@@ -201,6 +207,7 @@ QVector<int> DivideAndConquer::merge(const QVector<QPoint> &pointsArray, QVector
         }
     }
 
+    emit highlightLine(7);
     if(bottomLeft <= topLeft) {
         for(int i = 0; i<left.size(); i++){
             if(i >=bottomLeft && i<=topLeft) {
@@ -243,5 +250,6 @@ QVector<int> DivideAndConquer::merge(const QVector<QPoint> &pointsArray, QVector
         }
     }
 
+    emit highlightLine(8);
     return result;
 }

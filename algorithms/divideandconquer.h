@@ -22,6 +22,7 @@ signals:
     void setMerge(IntVector hull1,IntVector hull2);
     void resetMarkers();
     void clearHull();
+    void highlightLine(int line);
 
 public:
     void run();

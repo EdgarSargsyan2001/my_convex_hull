@@ -48,6 +48,7 @@ public:
     QLine toScreenCoords(QLine & line);
 signals:
     void speedChanged(int speed);
+    void highlightLine(int line);
 
 public slots:
     void runJarvis();
@@ -65,14 +66,13 @@ public slots:
     void setLineYellow(QPoint a, QPoint b);
     void setPoint(QPoint a);
     void setHull(IntVector convexHull);
-    void setMerge(IntVector hull1,IntVector hull2);
+    void setMerge(IntVector hull1, IntVector hull2);
     void onAlgorithmFinished();
     void drawHull(QPainter & painter);
     void resizeEvent(QResizeEvent * event);
     void stopAllAlgorithms();
     void onPointsCountChanged(int value);
     void onSpeedChanged(int speed);
-
 };
 
 #endif // DRAWWIDGET_H

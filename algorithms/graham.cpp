@@ -19,6 +19,7 @@ void Graham::sort(const QVector<QPoint> &pointsArray, QVector<int> & pointsIndex
     int i = 0, j = 0, flag = 1;
     int temp;
     int len = pointsIndexes.size();
+    emit highlightLine(2);
     for(i = 1; (i <= len) && flag; i++) {
         flag = 0;
         for (j=0; j < (len -1); j++) {
@@ -54,6 +55,8 @@ void Graham::convexHull(const QVector<QPoint> &pointsArray, QVector<int> &convex
         pointsIndexes.push_back(i);
     }
     int n = pointsArray.size();
+    
+    emit highlightLine(1);
     int ymin = pointsArray[0].y();
     int min = 0;
     for (int i = 1; i < n; i++) {
@@ -73,8 +76,9 @@ void Graham::convexHull(const QVector<QPoint> &pointsArray, QVector<int> &convex
     pointsIndexes[min] = temp;
 
     QPoint p0 = pointsArray[pointsIndexes[0]];
-    sort( pointsArray,pointsIndexes,p0);
+    sort(pointsArray, pointsIndexes, p0);
 
+    emit highlightLine(3);
     int newSize = 1;
     for (int i=1; i<n; i++) {
         while (i < n-1 && orientation(p0,
@@ -87,6 +91,7 @@ void Graham::convexHull(const QVector<QPoint> &pointsArray, QVector<int> &convex
     }
     if (newSize < 3) return;
 
+    emit highlightLine(4);
     convexHull.push_front(pointsIndexes[0]);
     emit setHull(reverseHull(convexHull));
     this->msleep(40 * getDelayMultiplier());
@@ -97,25 +102,31 @@ void Graham::convexHull(const QVector<QPoint> &pointsArray, QVector<int> &convex
     emit setHull(reverseHull(convexHull));
     this->msleep(40 * getDelayMultiplier());
 
+    emit highlightLine(5);
     for (int i = 3; i < newSize; i++) {
+        emit highlightLine(6);
         while (orientation(pointsArray[convexHull[1]],
                            pointsArray[convexHull[0]],
                            pointsArray[pointsIndexes[i]]) != 2) {
             emit setHull(reverseHull(convexHull));
             this->msleep(160 * getDelayMultiplier());
+            emit highlightLine(7);
             convexHull.pop_front();
             emit setHull(reverseHull(convexHull));
             this->msleep(80 * getDelayMultiplier());
         }
+        emit highlightLine(8);
         convexHull.push_front(pointsIndexes[i]);
         emit setHull(reverseHull(convexHull));
         this->msleep(80 * getDelayMultiplier());
     }
+    
+    emit highlightLine(9);
 }
 
 void Graham::run()
 {
-    convexHull(_pointsArray,_convexHull);
+    convexHull(_pointsArray, _convexHull);
 }
 
 void Graham::setInputData(int speed, const QVector<QPoint> &pointsArray)
