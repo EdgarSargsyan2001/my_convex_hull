@@ -38,16 +38,16 @@ void MainWindow::on_jarvisButton_released()
     emit runJarvis();
     emit statusChanged("Running Jarvis...");
     emit setCodeText(
-        "1. Find the leftmost bottom point P0\n"
-        "2. Set current point P = P0\n"
-        "3. Do while P != P0:\n"
-        "4.   Find next point Q that makes maximum right turn\n"
-        "5.   For each point R in set:\n"
-        "6.     If R makes left turn from PQ or is collinear and farther, Q = R\n"
-        "7.   Add Q to hull\n"
-        "8.   Set P = Q\n"
-        "9. Return hull",
-        "Jarvis March Pseudocode");
+        "1. Գտնել ամենաձախ ներքևի կետը P0\n"
+        "2. Սահմանել ընթացիկ կետը P = P0\n"
+        "3. Կատարել մինչև P != P0:\n"
+        "4.   Գտնել հաջորդ Q կետը, որը կատարում է առավելագույն աջ շրջադարձ\n"
+        "5.   Յուրաքանչյուր կետ R-ի համար բազմությունում:\n"
+        "6.     Եթե R-ը կատարում է ձախ շրջադարձ PQ-ից կամ ավելի հեռու է, Q = R\n"
+        "7.   Ավելացնել Q-ն թաղանթին\n"
+        "8.   Սահմանել P = Q\n"
+        "9. Վերադարձնել թաղանթը",
+        "'Jarvis'-ի ընթացքի կեղծ կոդը");
 }
 
 void MainWindow::on_grahamButton_released()
@@ -55,16 +55,16 @@ void MainWindow::on_grahamButton_released()
     emit runGraham();
     emit statusChanged("Running Graham...");
     emit setCodeText(
-        "1. Find point P0 with minimum y-coordinate (if tie, take leftmost)\n"
-        "2. Sort all other points by polar angle with P0\n"
-        "3. Remove points with same angle keeping farthest one\n"
-        "4. Push P0, P[1], P[2] into stack S\n"
-        "5. For i = 3 to n-1\n"
-        "6.   While ccw(next-to-top(S), top(S), P[i]) != counterclockwise\n"
-        "7.     Pop from S\n"
-        "8.   Push P[i] into S\n"
-        "9. S contains the convex hull points",
-        "Graham's Scan Pseudocode");
+        "1. Գտնել P0 կետը նվազագույն y-կոորդինատով (եթե հավասար է, վերցնել ամենաձախը)\n"
+        "2. Դասավորել բոլոր մյուս կետերը P0-ի հետ բևեռային անկյունով\n"
+        "3. Հեռացնել նույն անկյուն ունեցող կետերը՝ պահելով ամենահեռավորը\n"
+        "4. Ավելացնել P0, P[1], P[2] կետերը S պահունակի մեջ\n"
+        "5. For i = 3 մինչև n-1\n"
+        "6.   While ccw(next-to-top(S), top(S), P[i]) != ժամացույցի հակառակ\n"
+        "7.     Հանել S-ից\n"
+        "8.   Ավելացնել P[i] կետը S-ի մեջ\n"
+        "9. S-ը պարունակում է ուռուցիկ թաղանթի կետերը",
+        "'Graham'-ի ընթացքի կեղծ կոդը");
 }
 
 void MainWindow::on_dacButton_released()
@@ -72,15 +72,15 @@ void MainWindow::on_dacButton_released()
     emit runDivideAndConquer();
     emit statusChanged("Running Divide & Conquer...");
     emit setCodeText(
-        "1. Sort points by x-coordinate\n"
-        "2. Divide points into left and right halves recursively\n"
-        "3. If 3 points: determine hull based on orientation\n"
-        "4. If 2 points: order by y-coordinate\n"
-        "5. If 1 point: return single point\n"
-        "6. Find upper and lower bridges between left and right hulls\n"
-        "7. Merge hulls using bridges, keeping points between bridges\n"
-        "8. Return final convex hull",
-        "Divide and Conquer Pseudocode");
+        "1. Դասավորել կետերը x-կոորդինատով\n"
+        "2. Բաժանել կետերը ձախ և աջ կիսամասերի ռեկուրսիվ կերպով\n"
+        "3. Եթե 3 կետ կա՝ որոշել թաղանթը՝ հիմնվելով կողմնորոշման վրա\n"
+        "4. Եթե 2 կետ կա՝ դասավորել y-կոորդինատով\n"
+        "5. Եթե 1 կետ կա՝ վերադարձնել միայնակ կետը\n"
+        "6. Գտնել վերին և ստորին կամուրջները ձախ և աջ թաղանթների միջև\n"
+        "7. Միավորել թաղանթները՝ օգտագործելով կամուրջները, պահելով կետերը կամուրջների միջև\n"
+        "8. Վերադարձնել վերջնական ուռուցիկ թաղանթը",
+        "'Բաժանիր և տիրիր'-ի կեղծ կոդ");
 }
 
 void MainWindow::on_clearButton_released()

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>1019</width>
     <height>1168</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Convex Hull Algorithms</string>
+   <string>ՈՒռուցիկ Թաղանթի վիզուալիզատոր</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -31,7 +31,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Algorithm Code</string>
+           <string>Ալգորիթմի կոդ</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -48,8 +48,8 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>666</width>
-            <height>220</height>
+            <width>743</width>
+            <height>205</height>
            </size>
           </property>
           <property name="sizeIncrement">
@@ -85,7 +85,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
-           <string>Points</string>
+           <string>Կետերի քանակ</string>
           </property>
           <layout class="QHBoxLayout" name="pointsLayout">
            <property name="topMargin">
@@ -129,7 +129,7 @@
         <item>
          <widget class="QGroupBox" name="speedBox">
           <property name="title">
-           <string>Speed</string>
+           <string>Ալգորիթմի արագությունը</string>
           </property>
           <layout class="QHBoxLayout" name="speedLayout">
            <property name="topMargin">
@@ -186,7 +186,7 @@
            <enum>Qt::NoFocus</enum>
           </property>
           <property name="text">
-           <string>Generate Points</string>
+           <string>Ստեղծել կետեր</string>
           </property>
          </widget>
         </item>
@@ -199,7 +199,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Clear All</string>
+           <string>Մաքրել բոլորը</string>
           </property>
          </widget>
         </item>
@@ -212,7 +212,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Stop</string>
+           <string>Դադարեցնել</string>
           </property>
          </widget>
         </item>
@@ -223,7 +223,7 @@
     <item>
      <widget class="QGroupBox" name="algorithmGroup">
       <property name="title">
-       <string>Algorithms</string>
+       <string>Ալգորիթմներ</string>
       </property>
       <layout class="QHBoxLayout" name="algorithmLayout">
        <item>
@@ -232,7 +232,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>Run Jarvis</string>
+          <string>Գործարկել 'Jarvis'</string>
          </property>
         </widget>
        </item>
@@ -242,7 +242,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>Run Graham</string>
+          <string>Գործարկել 'Graham'</string>
          </property>
         </widget>
        </item>
@@ -252,7 +252,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="text">
-          <string>Run Divide and Conquer</string>
+          <string>Գործարկել 'Բաժանիր և տիրիր'</string>
          </property>
         </widget>
        </item>
@@ -289,7 +289,7 @@
     <item>
      <widget class="QLabel" name="statusLabel">
       <property name="text">
-       <string>Ready</string>
+       <string>Պատրաստ</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

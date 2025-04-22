@@ -25,3 +25,6 @@ HEADERS  += mainwindow.h \
     algorithms/divideandconquer.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+     images.qrc
