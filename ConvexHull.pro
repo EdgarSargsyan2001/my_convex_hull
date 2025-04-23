@@ -1,5 +1,6 @@
 QT       += core gui
-
+CONFIG+=debug
+CONFIG+=qml_debug
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ConvexHull
